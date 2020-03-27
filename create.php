@@ -41,7 +41,7 @@ $taken = $query0072->fetchAll();
       <label for="subject">Beschrijving</label>
     </div>
     <div class="col-75">
-      <textarea id="subject" name="beschrijving" placeholder="Omschrijf jouw taken..." style="height:200px" require></textarea>
+      <textarea id="subject" name="beschrijving" placeholder="Omschrijf jouw taak..." style="height:200px" require></textarea>
     </div>
   </div>
   <div class="row">

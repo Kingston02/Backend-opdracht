@@ -12,9 +12,17 @@ try{
   die('Unable to connect with the database');
 }
 
-$query0072 = $conn->prepare('SELECT * FROM taken');
+if(isset($_GET['filter']) && $_GET['filter'] == 'status'){
+    $query0072 = $conn->prepare('SELECT * FROM taken ORDER BY statuss DESC');
+} elseif(isset($_GET['filter']) && $_GET['filter'] == 'datum'){
+    $query0072 = $conn->prepare('SELECT * FROM taken ORDER BY datum DESC');
+} else {
+    $query0072 = $conn->prepare('SELECT * FROM taken');
+}
+
 $query0072->execute();
 $taken = $query0072->fetchAll();
+
 ?>
 
 <!DOCTYPE html>
@@ -29,14 +37,24 @@ $taken = $query0072->fetchAll();
     <div id="myDIV" class="header">
         <h2 style="margin:5px">Taken lijst</h2>
         <a href='create.php'><span class="addBtn">Toevoegen</span></a>
+        <a href='index.php?filter=datum'><span  style='margin-left:1em;margin-right:1em;' class="addBtn">Datum</span></a>
+        <a href='index.php?filter=status'><span class="addBtn">status</span></a>
     </div>
 
     <ul id="myUL">
         <?php foreach($taken as $task){ ?>
-            <li><?php echo $task['title'] . '<br>' . '<div id="beschrijving">' . $task['beschrijving'] . '</div>'; ?></li>
+            <li <?php if($task['statuss'] == 'check'){ echo 'class="checked"'; } ?>>
+            <a style='position:absolute; right:100px;' href='stat.php?id=<?php echo $task['id']; ?>'>
+            <span>Done</span>
+            </a>
+            <a href='edit.php?id=<?php echo $task['id']; ?>' style='position:absolute; right:40px;' class='edit'>Edit</a>
+            <?php echo '<h3>'.$task['title'].'</h3>' . '</a>' . 'Taken:<div>' . $task['beschrijving'] .'<br>'.$task['statuss']. '</div>'; ?>
+            <a href='deleteProc.php?id=<?php echo $task['id']; ?>'>
+            <span class='close'>x</span></li>
+            </a>
         <?php } ?>
     </ul>
     
-    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript" src="js/scrip.js"></script>
     </body>
 </html>
