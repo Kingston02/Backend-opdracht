@@ -1,16 +1,5 @@
 <?php
-$server = "localhost";
-$username = "root";
-$password = "";
-$dbname = "backend";
-
-// Create connection
-try{
-  $conn = new PDO("mysql:host=$server;dbname=$dbname","$username","$password");
-  $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-}catch(PDOException $e){
-  die('Unable to connect with the database');
-}
+require 'conn.php';
 
 if(isset($_GET['filter']) && $_GET['filter'] == 'status'){
     $query0072 = $conn->prepare('SELECT * FROM taken ORDER BY statuss DESC');
@@ -45,10 +34,10 @@ $taken = $query0072->fetchAll();
         <?php foreach($taken as $task){ ?>
             <li <?php if($task['statuss'] == 'check'){ echo 'class="checked"'; } ?>>
             <a style='position:absolute; right:100px;' href='stat.php?id=<?php echo $task['id']; ?>'>
-            <span>Done</span>
+            <span>Totale lijst klaar</span>
             </a>
             <a href='edit.php?id=<?php echo $task['id']; ?>' style='position:absolute; right:40px;' class='edit'>Edit</a>
-            <?php echo '<h3>'.$task['title'].'</h3>' . '</a>' . 'Taken:<div>' . $task['beschrijving'] .'<br>'.$task['statuss']. '</div>'; ?>
+            <?php echo '<h3>'.$task['title'].'</h3>' . '</a>' . 'Taken:<div>' . nl2br($task['beschrijving']) .'<br>'.$task['statuss']. '</div>'; ?>
             <a href='deleteProc.php?id=<?php echo $task['id']; ?>'>
             <span class='close'>x</span></li>
             </a>

@@ -1,16 +1,5 @@
 <?php
-$server = "localhost";
-$username = "root";
-$password = "";
-$dbname = "backend";
-
-// Create connection
-try{
-  $conn = new PDO("mysql:host=$server;dbname=$dbname","$username","$password");
-  $conn->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-}catch(PDOException $e){
-  die('Unable to connect with the database');
-}
+require 'conn.php';
 
 $id = $_GET['id'];
 
@@ -31,7 +20,7 @@ $taken = $query0072->fetch();
     <body>
 <a href='index.php'>Terug</a>
     <div class="container">
-  <form action="createProc.php">
+  <form action="editProc.php">
   <div class="row">
     <div class="col-25">
       <label for="fname">Title</label>
@@ -45,7 +34,7 @@ $taken = $query0072->fetch();
       <label for="subject">Beschrijving</label>
     </div>
     <div class="col-75">
-      <input type='text' id="subject" name="beschrijving" placeholder="Omschrijf jouw taak..." value='<?php echo $taken['beschrijving']; ?>' require>
+      <textarea type='text' id="subject" name="beschrijving" placeholder="Omschrijf jouw taak..." require><?php echo $taken['beschrijving']; ?></textarea>
     </div>
   </div>
   <input type='hidden' name='id' value='<?php echo $id; ?>'>
