@@ -16,7 +16,7 @@ $taken = $query0072->fetchAll();
     <body>
 <a href='index.php'>Terug</a>
     <div class="container">
-  <form action="createProc.php">
+  <form action="createProc.php" method='POST'>
   <div class="row">
     <div class="col-25">
       <label for="fname">Title lijst</label>
