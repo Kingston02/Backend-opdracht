@@ -19,7 +19,7 @@ $taken = $query0072->fetchAll();
   <form action="createProc.php">
   <div class="row">
     <div class="col-25">
-      <label for="fname">Title</label>
+      <label for="fname">Title lijst</label>
     </div>
     <div class="col-75">
       <input type="text" id="fname" name="title" placeholder="Title.." require>
@@ -27,17 +27,34 @@ $taken = $query0072->fetchAll();
   </div>
   <div class="row">
     <div class="col-25">
-      <label for="subject">Beschrijving</label>
+      <label for="subject">Taken</label>
     </div>
-    <div class="col-75">
-      <textarea id="subject" name="beschrijving" placeholder="Omschrijf jouw taak..." style="height:200px" require></textarea>
+    <div class="col-75" id='takenDiv'>
+      <input type="text" id="fname" name="title" placeholder="Taak.." require>
     </div>
   </div>
+
   <div class="row">
     <input type="submit" value="Submit">
   </div>
   </form>
+  <button onclick='aanmaken()'>+</button>
+  <input value='1' type='hidden' id='amountBox'>
 </div>
+
+    <script>
+      function aanmaken(){
+        var amountBox = (document.getElementById('amountBox').value ++);
+        var div1 = document.createElement('input');
+        // Get template data
+        div1.name = 'taken[]';
+        div1.type = 'text';
+        div1.placeholder = 'Taak'+amountBox+'..';
+        // append to our form, so that template data
+        //become part of form
+        document.getElementById('takenDiv').appendChild(div1);
+      }
+    </script>
 
     <script type="text/javascript" src="js/index.js"></script>
     </body>
