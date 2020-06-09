@@ -1,16 +1,15 @@
 <?php
 require 'conn.php';
 
-$title = $_GET['title'];
-$beschrijving = $_GET['beschrijving'];
-$id = $_GET['id'];
+$title = htmlspecialchars($_POST['title']);
+$id = $_POST['id'];
 
 if(isset($title)){
-    $sql = "UPDATE taken SET title=:title, beschrijving=:beschrijving WHERE id=:id";
+    $sql = "UPDATE onderwerpen SET taak=:taak WHERE id=:id";
     // Prepare statement
     $stmt = $conn->prepare($sql);
     // execute the query
-    $stmt->execute(array(':title' => $title, ':beschrijving' => $beschrijving, ':id' => $id));
+    $stmt->execute(array(':taak' => $title, ':id' => $id));
 }
 
 header('Location:index.php');

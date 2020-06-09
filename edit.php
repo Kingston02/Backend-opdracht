@@ -1,9 +1,9 @@
 <?php
 require 'conn.php';
 
-$id = $_GET['id'];
+$id = htmlspecialchars($_GET['id']);
 
-$query0072 = $conn->prepare('SELECT * FROM taken WHERE id=:id');
+$query0072 = $conn->prepare('SELECT * FROM onderwerpen WHERE id=:id');
 $query0072->bindparam(':id', $id);
 $query0072->execute();
 $taken = $query0072->fetch();
@@ -20,21 +20,13 @@ $taken = $query0072->fetch();
     <body>
 <a href='index.php'>Terug</a>
     <div class="container">
-  <form action="editProc.php">
+  <form action="editProc.php" method='POST'>
   <div class="row">
     <div class="col-25">
-      <label for="fname">Title</label>
+      <label for="fname">Taak</label>
     </div>
     <div class="col-75">
-      <input type="text" id="fname" name="title" placeholder="Title.." value='<?php echo $taken['title']; ?>' require>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-25">
-      <label for="subject">Beschrijving</label>
-    </div>
-    <div class="col-75">
-      <textarea type='text' id="subject" name="beschrijving" placeholder="Omschrijf jouw taak..." require><?php echo $taken['beschrijving']; ?></textarea>
+      <input type="text" id="fname" name="title" placeholder="Title.." value='<?php echo $taken['taak']; ?>' require>
     </div>
   </div>
   <input type='hidden' name='id' value='<?php echo $id; ?>'>
