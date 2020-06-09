@@ -1,9 +1,7 @@
 <?php
 require 'conn.php';
 
-if(isset($_GET['filter']) && $_GET['filter'] == 'status'){
-    $query0072 = $conn->prepare('SELECT * FROM taken ORDER BY statuss DESC');
-} elseif(isset($_GET['filter']) && $_GET['filter'] == 'datum'){
+if(isset($_GET['filter']) && $_GET['filter'] == 'datum'){
     $query0072 = $conn->prepare('SELECT * FROM taken ORDER BY datum DESC');
 } else {
     $query0072 = $conn->prepare('SELECT * FROM taken');
@@ -33,7 +31,11 @@ $taken = $query0072->fetchAll();
     <ul id="myUL">
         <?php foreach($taken as $task){ 
 
-            $query0072 = $conn->prepare('SELECT * FROM taken INNER JOIN onderwerpen WHERE onderwerpen.taak_id = :taak');
+            if(isset($_GET['filter']) && $_GET['filter'] == 'status'){
+                $query0072 = $conn->prepare('SELECT * FROM taken INNER JOIN onderwerpen WHERE onderwerpen.taak_id = :taak ORDER BY statuss DESC');
+            } else {
+                $query0072 = $conn->prepare('SELECT * FROM taken INNER JOIN onderwerpen WHERE onderwerpen.taak_id = :taak');
+            }
             $query0072->execute(array(':taak'=>$task['id']));
             $onderwerpen = $query0072->fetchAll();
 
