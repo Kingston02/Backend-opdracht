@@ -31,13 +31,19 @@ $taken = $query0072->fetchAll();
     </div>
 
     <ul id="myUL">
-        <?php foreach($taken as $task){ ?>
+        <?php foreach($taken as $task){ 
+
+            $query0072 = $conn->prepare('SELECT * FROM taken INNER JOIN onderwerpen WHERE onderwerpen.taak_id = :taak');
+            $query0072->execute(array(':taak'=>$task['id']));
+            $onderwerpen = $query0072->fetchAll();
+
+            ?>
             <li <?php if($task['statuss'] == 'check'){ echo 'class="checked"'; } ?>>
             <a style='position:absolute; right:100px;' href='stat.php?id=<?php echo $task['id']; ?>'>
             <span>Totale lijst klaar</span>
             </a>
             <a href='edit.php?id=<?php echo $task['id']; ?>' style='position:absolute; right:40px;' class='edit'>Edit</a>
-            <?php echo '<h3>'.$task['title'].'</h3>' . '</a>' . 'Taken:<div>' . nl2br($task['beschrijving']) .'<br>'.$task['statuss']. '</div>'; ?>
+            <?php echo '<h3>'.$task['title'].'</h3>' . '</a>' . 'Taken:'; foreach($onderwerpen as $ond){ echo '<div>' . $ond['taak'] .'<br>'.$ond['statuss']. '</div>'; } ?>
             <a href='deleteProc.php?id=<?php echo $task['id']; ?>'>
             <span class='close'>x</span></li>
             </a>
