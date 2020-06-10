@@ -3,10 +3,20 @@ require 'conn.php';
 
 $id = htmlspecialchars($_GET['id']);
 
-$query0072 = $conn->prepare('SELECT * FROM onderwerpen WHERE id=:id');
-$query0072->bindparam(':id', $id);
-$query0072->execute();
-$taken = $query0072->fetch();
+if(!isset($_GET['t'])){
+  $query0072 = $conn->prepare('SELECT * FROM onderwerpen WHERE id=:id');
+  $query0072->bindparam(':id', $id);
+  $query0072->execute();
+  $taken = $query0072->fetch();
+  $taak = $taken['taken'];
+} else {
+  $query0072 = $conn->prepare('SELECT * FROM taken WHERE id=:id');
+  $query0072->bindparam(':id', $id);
+  $query0072->execute();
+  $taken = $query0072->fetch();
+
+  $taak = $taken['title'];
+}
 
 ?>
 
@@ -26,7 +36,7 @@ $taken = $query0072->fetch();
       <label for="fname">Taak</label>
     </div>
     <div class="col-75">
-      <input type="text" id="fname" name="title" placeholder="Title.." value='<?php echo $taken['taak']; ?>' require>
+      <input type="text" id="fname" name="title" placeholder="Title.." value='<?php echo $taak; ?>' require>
     </div>
   </div>
   <input type='hidden' name='id' value='<?php echo $id; ?>'>
