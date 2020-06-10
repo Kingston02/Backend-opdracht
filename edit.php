@@ -8,7 +8,9 @@ if(!isset($_GET['t'])){
   $query0072->bindparam(':id', $id);
   $query0072->execute();
   $taken = $query0072->fetch();
+  
   $taak = $taken['taken'];
+  $setje = 'not';
 } else {
   $query0072 = $conn->prepare('SELECT * FROM taken WHERE id=:id');
   $query0072->bindparam(':id', $id);
@@ -16,6 +18,7 @@ if(!isset($_GET['t'])){
   $taken = $query0072->fetch();
 
   $taak = $taken['title'];
+  $setje = 'set';
 }
 
 ?>
@@ -40,6 +43,7 @@ if(!isset($_GET['t'])){
     </div>
   </div>
   <input type='hidden' name='id' value='<?php echo $id; ?>'>
+  <input type='hidden' name='set' value='<?php echo $setje; ?>'>
   <div class="row">
     <input type="submit" value="Opslaan">
   </div>
