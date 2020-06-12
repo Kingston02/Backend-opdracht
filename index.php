@@ -41,8 +41,11 @@ $taken = $query0072->fetchAll();
 
             ?>
             <li>
-            <a href='edit.php?id=<?php echo $task['id']; ?>' style='position:absolute; right:40px;' class='edit'>Edit</a>
+
             <?php echo '<h3>'.$task['title']."<a href='edit.php?id={$task['id']}&t=t'> ✏️</a>".'</h3>' . '</a>' . 'Taken:'; foreach($onderwerpen as $ond){ echo '<div style='; if($ond['statuss'] == 'check'){ echo 'color:green'; } echo '>' . $ond['taak'] . " <a href='stat.php?id={$ond['id']} '> ✔</a> <a href='edit.php?id={$ond['id']} '> ✏️</a> <a href='deleteProc.php?id={$ond['id']} '> ✗</a>" . '</div>'; } ?>
+            <a href='create.php?id=<?php echo $task['id']; ?>&t=t'>
+            <div>nieuwe taak toevoegen</div></li>
+            </a>
             <a href='deleteProc.php?id=<?php echo $task['id']; ?>&t=t'>
             <span class='close'>x</span></li>
             </a>

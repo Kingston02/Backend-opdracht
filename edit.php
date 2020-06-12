@@ -9,7 +9,7 @@ if(!isset($_GET['t'])){
   $query0072->execute();
   $taken = $query0072->fetch();
   
-  $taak = $taken['taken'];
+  $taak = $taken['taak'];
   $setje = 'not';
 } else {
   $query0072 = $conn->prepare('SELECT * FROM taken WHERE id=:id');

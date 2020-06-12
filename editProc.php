@@ -4,7 +4,7 @@ require 'conn.php';
 $title = htmlspecialchars($_POST['title']);
 $id = $_POST['id'];
 
-if(isset($title) && $_POST['setje'] == 'not'){
+if(isset($title) && $_POST['set'] == 'not'){
     $sql = "UPDATE onderwerpen SET taak=:taak WHERE id=:id";
     // Prepare statement
     $stmt = $conn->prepare($sql);
