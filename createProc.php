@@ -10,7 +10,7 @@ $taken = $_POST['taken'];
 /**
  * kijkt of het allemaal wel gezet is
  */
-if(isset($title) && isset($taken) && !isset($_POST['idTask'])){
+if(isset($title) && isset($taken) && !isset($_GET['idTask']) && $_GET['idTask'] == ''){
     $query = $conn->prepare('INSERT INTO taken(title) VALUES(:title)');
     $query->execute(array(':title' => $title));
 
@@ -23,11 +23,11 @@ if(isset($title) && isset($taken) && !isset($_POST['idTask'])){
     }
 }
 
-if(isset($taken) && isset($_POST['idTask'])){
+if(isset($taken) && isset($_GET['idTask'])){
 
     foreach($taken as $taak){
         $query = $conn->prepare('INSERT INTO onderwerpen(taak_id, taak) VALUES(:id, :taak)');
-        $query->execute(array(':id' => $_POST['idTask'], ':taak' => $taak));
+        $query->execute(array(':id' => $_GET['idTask'], ':taak' => $taak));
     }
 }
 

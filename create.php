@@ -7,7 +7,7 @@ $taken = $query0072->fetchAll();
 
 if(isset($_GET['id'])){
 
-$query0072 = $conn->prepare('SELECT title FROM taken WHERE id = :id');
+$query0072 = $conn->prepare('SELECT * FROM taken WHERE id = :id');
 $query0072->bindparam(':id', $_GET["id"]);
 $query0072->execute();
 $naamTask = $query0072->fetch();
@@ -26,7 +26,7 @@ $naamTask = $query0072->fetch();
     <body>
 <a href='index.php'>Terug</a>
     <div class="container">
-  <form action="createProc.php" method='POST'>
+  <form action="createProc.php<?php if(isset($_GET['id'])){ echo '?idTask='.$_GET['id'];} ?>" method='POST'>
   <div class="row">
     <div class="col-25">
       <label for="fname">Title lijst</label>
@@ -50,6 +50,7 @@ $naamTask = $query0072->fetch();
   </form>
   <button onclick='aanmaken()'>+</button>
   <input value='2' type='hidden' id='amountBox'>
+  <input value='<?php if(isset($_GET['id'])){ echo $naamTask['id'];} ?>' name='idTask' type='hidden' id='amountBox'>
 </div>
 
     <script>
