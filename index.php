@@ -32,7 +32,7 @@ $taken = $query0072->fetchAll();
         <?php foreach($taken as $task){ 
 
             if(isset($_GET['filter']) && $_GET['filter'] == 'status'){
-                $query0072 = $conn->prepare('SELECT * FROM onderwerpen WHERE onderwerpen.taak_id = :taak ORDER BY statuss DESC');
+                $query0072 = $conn->prepare('SELECT * FROM onderwerpen WHERE onderwerpen.taak_id = :taak AND onderwerpen.statuss = "check" ORDER BY statuss DESC');
             } else {
                 $query0072 = $conn->prepare('SELECT * FROM onderwerpen WHERE onderwerpen.taak_id = :taak');
             }
